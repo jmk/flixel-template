@@ -1,0 +1,53 @@
+<project name="Flixel project" default="build">
+    <!-- Load build configuration properties -->
+    <property environment="env" />
+    <property file="build.properties" />
+
+    <echo message="#######################################################" />
+    <echo message="Project:  ${PROJECT_NAME}" />
+    <echo message="Flex SDK: ${FLEX_HOME}" />
+    <echo message="#######################################################" />
+
+    <!-- Derived properties -->
+    <property name="BUILD_PRODUCT" value="${BUILD_DIR}/${PROJECT_NAME}.swf"/>
+
+    <!-- Include Ant tasks for Flex -->
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" /> 
+
+    <!-- delete and create the DEPLOY dir again -->
+    <target name="init">
+        <mkdir dir="${BUILD_DIR}" />
+    </target>
+
+    <!-- Build and output the Main.swf-->
+    <target name="build" depends="init">
+        <mxmlc file="${SRC_DIR}/main.as" output="${BUILD_PRODUCT}">
+            <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+            <source-path path-element="${FLEX_HOME}/frameworks"/>
+            <source-path path-element="${SRC_DIR}"/>
+            <source-path path-element="${LIBS_DIR}"/>
+            <compiler.debug>true</compiler.debug>
+            <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
+        </mxmlc>
+    </target>
+
+    <target name="clean">
+        <delete dir="${BUILD_DIR}" />
+    </target>
+
+    <target name="run" depends="build">
+        <exec executable="open">
+            <arg value="-a" />
+            <arg value="Safari" />
+            <arg value="${BUILD_PRODUCT}" />
+        </exec>
+    </target>
+
+    <target name="debug" depends="build">
+        <exec executable="open">
+            <arg value="-a" />
+            <arg value="Flash Player Debugger" />
+            <arg value="${BUILD_PRODUCT}" />
+        </exec>
+    </target>
+</project>
