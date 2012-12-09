@@ -1,6 +1,6 @@
 ## Flixel bare-bones template ##
 
-This project template is intended for advanced developers who want a minimal Flixel dev environment for use in a command-line. The code is derived from the bare-bones project that ships with Flixel.
+This project template is intended for advanced developers who want a minimal Flixel dev environment for use from the command-line. The code is derived from the bare-bones project that ships with Flixel.
 
 __Note: This template was developed for OS X; other platforms are not fully supported at this time.__
 
